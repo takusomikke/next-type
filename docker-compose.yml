@@ -1,0 +1,43 @@
+version: "3"
+services:
+  backend:
+    container_name: "backend"
+    build:
+      context: ./containers/backend
+      args:
+        user: "${USER_NAME}"
+        user_id: "${USER_ID}"
+        env: "${EXEC_ENV}"
+    environment:
+      DJANGO_SETTINGS_MODULE: "${DJANGO_SETTINGS_MODULE}"
+      # USER_ID: "${USER_ID}"
+      # USER_NAME: "${USER_NAME}"
+      DB_NAME: "${DB_NAME}"
+      DB_USER: "${USER_NAME}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - ./code/backend/:/opt/backend/app
+    networks:
+      - container-link
+
+  frontend:
+    container_name: "frontend"
+    build:
+      context: ./containers/frontend
+      args:
+        env: "${EXEC_ENV}"
+    volumes:
+      - ./code/frontend/:/opt/frontend/app
+    networks:
+      - container-link
+    depends_on:
+      - backend
+
+networks:
+  container-link:
+    name: "${APP_NAME}-net"
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.20.100.0/24"
