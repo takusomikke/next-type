@@ -21,7 +21,10 @@ jobs:
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          COMPOSE_FILE: docker-compose.yml:docker-develop.yml
+          FRONTEND_DEBUG_PORT: 3000
+          BACKEND_DEBUG_PORT: 8000
+          URL_SCHEME: http
+          HOST: localhost
         run: |
           docker compose -f docker-compose.yml -f docker-develop.yml build backend
           docker compose -f docker-compose.yml -f docker-develop.yml up -d backend --wait
