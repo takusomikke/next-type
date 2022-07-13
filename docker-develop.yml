@@ -6,6 +6,13 @@ services:
       FRONTEND_DEBUG_PORT: "${FRONTEND_DEBUG_PORT}"
     ports:
       - "${BACKEND_DEBUG_PORT}:8000"
+    healthcheck:
+      test: "python manage.py showmigrations || exit 1"
+      interval: 5s
+      timeout: 30s
+      retries: 10
+      # start_period: 30s
+
 
   frontend:
     environment:

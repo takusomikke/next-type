@@ -21,7 +21,7 @@ jobs:
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          COMPOSE_FILE: docker-compose.yml:docker-develop.yml
         run: |
-          docker compose build backend
-          docker compose up -d backend
+          docker compose -f docker-compose.yml -f docker-develop.yml up -d backend --wait
           docker compose exec -T backend python manage.py test
