@@ -1,0 +1,26 @@
+name: create-pull-request
+on: [push]
+jobs:
+  build-container:
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: compose-run
+        shell: bash
+        env:
+          APP_NAME: ${{ secrets.APP_NAME }}
+          USER_ID: ${{ secrets.USER_ID }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+          EXEC_ENV: ${{ secrets.EXEC_ENV }}
+          DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          docker-compose up -d
+          docker-compose exec backend python manage.py test
