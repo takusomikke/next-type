@@ -1,11 +1,11 @@
-name: django-test
+name: automation-test
 
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  build-container:
+  django-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +30,9 @@ jobs:
         run: |
           docker compose -f docker-compose.yml -f docker-develop.yml build backend
           docker compose -f docker-compose.yml -f docker-develop.yml up -d backend --wait
+      - name: healthchecker-log
+        if: failure()
+        run: docker inspect --format='{{json .State.Health}}' backend | jq .
       - name: run-test
         run: |
           docker compose exec -T backend python manage.py test

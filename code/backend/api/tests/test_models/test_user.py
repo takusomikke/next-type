@@ -9,5 +9,5 @@ class WorkflowTests(TestCase):
     def test_username_validName_correctValue(self):
         self.assertEqual(
             self.user.username,
-            "next-type"
+            "next_type"
         )
