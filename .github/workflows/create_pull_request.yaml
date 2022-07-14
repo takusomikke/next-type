@@ -2,14 +2,16 @@ name: create-pull-request
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, synchronize]
 
 jobs:
   build-container:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
       - name: compose-up
         shell: bash
         env:
