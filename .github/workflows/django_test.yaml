@@ -3,6 +3,8 @@ name: automation-test
 on:
   pull_request:
     types: [opened, synchronize]
+    paths:
+      - '**.py'
 
 jobs:
   django-test:
@@ -23,7 +25,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
-      - name: set-userid
+      - name: set-user-id
         run: |
           echo "USER_ID=$(id -u)" >> $GITHUB_ENV
       - name: compose-up
