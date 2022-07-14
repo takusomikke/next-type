@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: compose-run
+      - name: compose-up
         shell: bash
         env:
           APP_NAME: next-type
@@ -28,4 +28,6 @@ jobs:
         run: |
           docker compose -f docker-compose.yml -f docker-develop.yml build backend
           docker compose -f docker-compose.yml -f docker-develop.yml up -d backend --wait
+      - name: run-test
+        run: |
           docker compose exec -T backend python manage.py test
