@@ -14,7 +14,7 @@ jobs:
         shell: bash
         env:
           APP_NAME: next-type
-          USER_ID: $(id -u)
+          USER_ID: `$(id -u)`
           USER_NAME: next-type
           EXEC_ENV: develop
           DJANGO_SETTINGS_MODULE: next_type.settings
