@@ -26,6 +26,7 @@ jobs:
           URL_SCHEME: http
           HOST: localhost
         run: |
+          id
           docker compose -f docker-compose.yml -f docker-develop.yml build backend
           docker compose -f docker-compose.yml -f docker-develop.yml up -d backend --wait || docker inspect --format='{{json .State.Health}}' backend | jq .
           docker compose exec -T backend python manage.py test
