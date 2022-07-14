@@ -11,9 +11,3 @@ class WorkflowTests(TestCase):
             self.user.username,
             "next-type"
         )
-
-    def test_username_validName_incorrectValue(self):
-        self.assertEqual(
-            self.user.username,
-            "next-types"
-        )
