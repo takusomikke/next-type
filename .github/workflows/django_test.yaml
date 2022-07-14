@@ -25,7 +25,7 @@ jobs:
           ref: ${{ github.head_ref }}
       - name: set-userid
         run: |
-        echo "USER_ID=$(id -u)" >> $GITHUB_ENV
+          echo "USER_ID=$(id -u)" >> $GITHUB_ENV
       - name: compose-up
         shell: bash
         run: |
