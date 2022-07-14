@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [opened, synchronize]
     paths:
-      - '**.py'
+      - 'code/backend/**'
 
 jobs:
   django-test:
