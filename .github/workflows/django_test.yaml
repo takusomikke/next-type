@@ -23,8 +23,6 @@ jobs:
       HOST: localhost
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
       - name: set-user-id
         run: |
           echo "USER_ID=$(id -u)" >> $GITHUB_ENV
