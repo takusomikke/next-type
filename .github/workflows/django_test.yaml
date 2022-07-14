@@ -1,4 +1,4 @@
-name: create-pull-request
+name: django-test
 
 on:
   pull_request:
