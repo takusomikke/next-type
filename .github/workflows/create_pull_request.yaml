@@ -1,5 +1,9 @@
 name: create-pull-request
-on: [push]
+
+on:
+  pull_request:
+    types: [opened]
+
 jobs:
   build-container:
     runs-on: ubuntu-latest
