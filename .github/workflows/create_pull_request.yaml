@@ -14,7 +14,7 @@ jobs:
         shell: bash
         env:
           APP_NAME: next-type
-          USER_ID: 1001
+          USER_ID: 1001 # Github runner id
           USER_NAME: next-type
           EXEC_ENV: develop
           DJANGO_SETTINGS_MODULE: next_type.settings
@@ -27,5 +27,5 @@ jobs:
           HOST: localhost
         run: |
           docker compose -f docker-compose.yml -f docker-develop.yml build backend
-          docker compose -f docker-compose.yml -f docker-develop.yml up -d backend --wait || docker inspect --format='{{json .State.Health}}' backend | jq .
+          docker compose -f docker-compose.yml -f docker-develop.yml up -d backend --wait
           docker compose exec -T backend python manage.py test
