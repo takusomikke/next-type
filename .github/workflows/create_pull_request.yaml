@@ -14,7 +14,7 @@ jobs:
         shell: bash
         env:
           APP_NAME: ${{ secrets.APP_NAME }}
-          USER_ID: ${{ secrets.USER_ID }}
+          USER_ID: 1001
           USER_NAME: ${{ secrets.USER_NAME }}
           EXEC_ENV: ${{ secrets.EXEC_ENV }}
           DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
@@ -26,7 +26,6 @@ jobs:
           URL_SCHEME: http
           HOST: localhost
         run: |
-          id
           docker compose -f docker-compose.yml -f docker-develop.yml build backend
           docker compose -f docker-compose.yml -f docker-develop.yml up -d backend --wait || docker inspect --format='{{json .State.Health}}' backend | jq .
           docker compose exec -T backend python manage.py test
