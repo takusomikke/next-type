@@ -13,11 +13,11 @@ jobs:
       - name: compose-run
         shell: bash
         env:
-          APP_NAME: ${{ secrets.APP_NAME }}
-          USER_ID: 1001
-          USER_NAME: ${{ secrets.USER_NAME }}
-          EXEC_ENV: ${{ secrets.EXEC_ENV }}
-          DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
+          APP_NAME: next-type
+          USER_ID: $(id -u)
+          USER_NAME: next-type
+          EXEC_ENV: develop
+          DJANGO_SETTINGS_MODULE: next_type.settings
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
