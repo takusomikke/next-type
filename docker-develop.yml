@@ -7,7 +7,7 @@ services:
     ports:
       - "${BACKEND_DEBUG_PORT}:8000"
     healthcheck:
-      test: "python /opt/backend/app/manage.py showmigrations || exit 1"
+      test: "echo hoge || exit 1"
       interval: 5s
       timeout: 30s
       retries: 10
