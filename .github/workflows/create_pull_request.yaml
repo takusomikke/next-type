@@ -14,7 +14,7 @@ jobs:
         shell: bash
         env:
           APP_NAME: next-type
-          USER_ID: 1001 # Github runner id
+          USER_ID: 1001 # Github Action runner id
           USER_NAME: next-type
           EXEC_ENV: develop
           DJANGO_SETTINGS_MODULE: next_type.settings
