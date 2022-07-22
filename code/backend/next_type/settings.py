@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os, logging, sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -129,3 +130,73 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Logging settings
+LOG_BASE_DIR = os.path.join(BASE_DIR, "log")
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "simple": {"format": "%(asctime)s [%(levelname)s] " +
+                   "%(pathname)s:%(lineno)d %(message)s"},
+        "catchup_deco": {"format": "%(asctime)s start catchup %(message)s"}
+    },
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "filename": os.path.join(LOG_BASE_DIR, "next_type.log"),
+            "formatter": "simple",
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 7,
+        },
+        "file_for_catchup": {
+            "level": "INFO",
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "filename": os.path.join(LOG_BASE_DIR, "catchup.log"),
+            "formatter": "catchup_deco",
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 7,
+        },
+        'memory': {
+            "level": "INFO",
+            "class": "logging.handlers.MemoryHandler",
+            "capacity": 100,
+            "flushLevel": logging.ERROR,
+            "target": "file",
+            "formatter": "simple",
+        },
+        'console_stdout': {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "stream": sys.stdout,
+            "formatter": "simple",
+        },
+        'console_stderr': {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "stream": sys.stderr,
+            "formatter": "simple",
+        }
+    },
+    "loggers" : {
+        "next_type": {
+            'handlers': ['file'],
+            'level': 'INFO',
+        },
+        "catchup": {
+            'handlers': ['console_stdout', 'console_stderr'],
+            'level': 'INFO',
+        },
+        "deco": {
+            'handlers': ['file_for_catchup'],
+            'level': 'INFO',
+        }
+    },
+    "root": {
+        "handlers": ["file"],
+        "level": "INFO",
+    },
+}
